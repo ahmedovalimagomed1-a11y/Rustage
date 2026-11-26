@@ -1,3 +1,5 @@
-/.pocketmine/
-/.rustage-secrets/
+/server/data/
+/server/plugins/
+/tailscale-state/
+.env
 *.log
