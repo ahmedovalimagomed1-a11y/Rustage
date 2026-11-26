@@ -1,0 +1,30 @@
+services:
+  pocketmine:
+    image: pmmp/pocketmine-mp:5.44.3
+    container_name: rustage-pocketmine
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ports:
+      - "19132:19132/udp"
+    volumes:
+      - ./server/data:/data
+      - ./server/plugins:/plugins
+
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: rustage-tailscale
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./tailscale-state:/var/lib/tailscale
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY:-}
+      TS_HOSTNAME: rustage
+    profiles:
+      - tailscale
