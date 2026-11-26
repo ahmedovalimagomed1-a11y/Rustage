@@ -13,6 +13,16 @@ if ! tailscale status --self >/dev/null 2>&1; then
   sudo tailscale up --auth-key="$TS_AUTHKEY" --hostname=rustage
 fi
 
+if ! command -v docker >/dev/null 2>&1; then
+  curl -fsSL https://get.docker.com | sudo sh
+  sudo usermod -aG docker "$USER"
+fi
+
+if ! docker compose version >/dev/null 2>&1; then
+  sudo apt-get update
+  sudo apt-get install -y docker-compose-plugin
+fi
+
 mkdir -p server/data server/plugins
 sudo chown -R 1000:1000 server/data server/plugins
 sudo docker compose up -d pocketmine
