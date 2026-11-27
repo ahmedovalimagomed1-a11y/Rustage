@@ -1,6 +1,6 @@
 services:
   pocketmine:
-    image: pmmp/pocketmine-mp:5.26.0
+    image: pmmp/pocketmine-mp:5.44.3
     container_name: rustage-pocketmine
     restart: unless-stopped
     stdin_open: true
@@ -8,8 +8,8 @@ services:
     ports:
       - "19132:19132/udp"
     volumes:
-      - ./server/data-1.21.60:/data
-      - ./server/plugins-1.21.60:/plugins
+      - ./server/data-1.26.30:/data
+      - ./server/plugins-1.26.30:/plugins
 
   tailscale:
     image: tailscale/tailscale:latest
