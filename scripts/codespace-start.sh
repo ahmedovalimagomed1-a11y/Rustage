@@ -6,6 +6,11 @@ if ! command -v tailscale >/dev/null 2>&1; then
 fi
 
 if ! tailscale status --self >/dev/null 2>&1; then
+  if ! sudo test -S /var/run/tailscale/tailscaled.sock; then
+    sudo mkdir -p /var/lib/tailscale /var/run/tailscale
+    sudo nohup tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock >/tmp/tailscaled-rustage.log 2>&1 &
+    sleep 3
+  fi
   if [ -z "${TS_AUTHKEY:-}" ]; then
     printf 'TS_AUTHKEY missing\n' >&2
     exit 1
