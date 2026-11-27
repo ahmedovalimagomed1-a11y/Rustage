@@ -28,8 +28,8 @@ if ! docker compose version >/dev/null 2>&1; then
   sudo apt-get install -y docker-compose-plugin
 fi
 
-mkdir -p server/data server/plugins
-sudo chown -R 1000:1000 server/data server/plugins
+mkdir -p server/data-1.21.60 server/plugins-1.21.60
+sudo chown -R 1000:1000 server/data-1.21.60 server/plugins-1.21.60
 sudo docker compose up -d pocketmine
 sudo docker compose ps
 tailscale ip -4
