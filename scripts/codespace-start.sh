@@ -30,6 +30,17 @@ fi
 
 mkdir -p server/data-1.21.60 server/plugins-1.21.60
 sudo chown -R 1000:1000 server/data-1.21.60 server/plugins-1.21.60
+if [ -f server/data-1.21.60/server.properties ]; then
+  python3 - <<'PY'
+import re
+p = "server/data-1.21.60/server.properties"
+s = open(p).read()
+s = re.sub(r"^xbox-auth=.*$", "xbox-auth=off", s, flags=re.M)
+if "xbox-auth=" not in s:
+    s += "\nxbox-auth=off\n"
+open(p, "w").write(s)
+PY
+fi
 sudo docker compose up -d pocketmine
 sudo docker compose ps
 tailscale ip -4
