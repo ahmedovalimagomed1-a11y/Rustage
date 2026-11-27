@@ -1,0 +1,40 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Rustage BP",
+    "description": "Rustage: mining, weapons, economy, accounts, and world systems by mmallaccia",
+    "uuid": "8c29fe7b-377b-4fc4-bbf2-89f387508255",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 0]
+  },
+  "modules": [
+    {
+      "description": "Rustage behavior pack",
+      "type": "data",
+      "uuid": "5e688723-c8f9-41d9-95ff-61c3ac8373b0",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Rustage scripts",
+      "type": "script",
+      "uuid": "f7a8f15f-123e-46f6-bcce-06ee943b49e2",
+      "version": [1, 0, 0],
+      "language": "javascript",
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "3d03bc29-2ab9-49d7-8bf3-2eb969c22291",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.12.0-beta"
+    }
+  ],
+  "metadata": {
+    "authors": ["mmallaccia"],
+    "contact": "Koshmarcar@gmail.com"
+  }
+}

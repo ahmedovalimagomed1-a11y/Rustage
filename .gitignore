@@ -1,5 +1,13 @@
 /server/data/
 /server/plugins/
+/server/data-*/
+/server/bds-data/
+/server/waterdog/
+/server/levilamina/*
+!/server/levilamina/Dockerfile
 /tailscale-state/
+__pycache__/
+*.py[cod]
+*.bak-*
 .env
 *.log

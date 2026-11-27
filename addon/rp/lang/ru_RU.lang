@@ -1,0 +1,22 @@
+item.rustage:ak47.name=АК-47
+item.rustage:ammo.name=Патроны 7,62
+item.rustage:scrap.name=Металлолом
+item.rustage:metal.name=Очищенный металл
+item.rustage:rad_pill.name=Таблетка от радиации
+item.rustage:market_coin.name=Монета рынка
+item.rustage:gas_can.name=Канистра
+item.rustage:stone.name=Камень Rust
+item.rustage:wood.name=Дерево Rust
+item.rustage:hammer.name=Строительная киянка
+item.rustage:berries.name=Ягоды
+item.rustage:cooked_meat.name=Приготовленное мясо
+item.rustage:water.name=Бутылка воды
+tile.rustage:wood_floor.name=Деревянный пол Rust
+tile.rustage:stone_floor.name=Каменный пол Rust
+tile.rustage:metal_floor.name=Металлический пол Rust
+tile.rustage:wood_wall.name=Деревянная стена Rust
+tile.rustage:stone_wall.name=Каменная стена Rust
+tile.rustage:metal_wall.name=Металлическая стена Rust
+
+pack.name=Rustage
+pack.description=Rustage: выживание, добыча, PvP, экономика и аккаунты от mmallaccia

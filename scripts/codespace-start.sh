@@ -29,25 +29,20 @@ if ! docker compose version >/dev/null 2>&1; then
   sudo apt-get install -y docker-compose-plugin
 fi
 
-mkdir -p server/data-1.26.30 server/plugins-1.26.30
-sudo chown -R 1000:1000 server/data-1.26.30 server/plugins-1.26.30
-python3 - <<'PY'
-import re
-from pathlib import Path
-p = Path("server/data-1.26.30/server.properties")
-s = p.read_text() if p.exists() else ""
-s = re.sub(r"^xbox-auth=.*$", "xbox-auth=off", s, flags=re.M)
-if "xbox-auth=" not in s:
-    s += "\nxbox-auth=off\n"
-p.write_text(s)
-PY
-sudo docker compose up -d pocketmine
-sudo docker compose ps
+mkdir -p server/bds-data server/waterdog
+sudo chown -R 1000:1000 server/bds-data server/waterdog
+
+bash scripts/install-addon.sh
+sudo chown -R 1000:1000 server/bds-data
+
+if [ ! -f server/waterdog/Waterdog.jar ]; then
+  curl -fsSL https://github.com/WaterdogPE/WaterdogPE/releases/download/latest/Waterdog.jar -o server/waterdog/Waterdog.jar
+fi
 
 PLAYIT_VERSION="v2.0.2"
 PLAYIT_BIN_DIR="${HOME}/.local/bin"
 PLAYIT_CONFIG_DIR="${HOME}/.config/playit"
-PLAYIT_SOCKET="${PLAYIT_CONFIG_DIR}/playit.sock"
+PLAYIT_SOCKET="/run/playit/playitd.sock"
 PLAYIT_SECRET="${PLAYIT_CONFIG_DIR}/playit.toml"
 
 mkdir -p "$PLAYIT_BIN_DIR" "$PLAYIT_CONFIG_DIR"
@@ -64,12 +59,23 @@ fi
 
 if [ ! -f "$PLAYIT_SECRET" ]; then
   printf 'playit secret missing; claim not completed\n' >&2
-else
-  if ! pgrep -f "playitd --socket-path=${PLAYIT_SOCKET}" >/dev/null 2>&1; then
-    setsid nohup "$PLAYIT_BIN_DIR/playitd" --socket-path="$PLAYIT_SOCKET" --secret-path="$PLAYIT_SECRET" >/tmp/playitd-rustage.log 2>&1 </dev/null &
-    sleep 2
-  fi
-  "$PLAYIT_BIN_DIR/playit" --socket-path="$PLAYIT_SOCKET" status || true
+  exit 1
 fi
+
+if [ ! -S "$PLAYIT_SOCKET" ] || ! "$PLAYIT_BIN_DIR/playit" status >/dev/null 2>&1; then
+  setsid nohup "$PLAYIT_BIN_DIR/playitd" --secret-path="$PLAYIT_SECRET" >/tmp/playitd-rustage.log 2>&1 </dev/null &
+  sleep 3
+fi
+
+"$PLAYIT_BIN_DIR/playit" status || true
+
+python3 scripts/configure-waterdog.py
+
+sudo docker compose pull bds waterdog
+sudo docker rm -f rustage-pocketmine >/dev/null 2>&1 || true
+sudo docker compose up -d bds
+sleep 10
+sudo docker compose up -d --force-recreate --no-deps waterdog
+sudo docker compose ps
 
 tailscale ip -4

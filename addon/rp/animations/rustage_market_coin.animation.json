@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.rustage.market_coin.hold_first_person": {
+      "loop": true,
+      "bones": {
+        "rustage_market_coin": {
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "position": [
+            0,
+            15,
+            2
+          ],
+          "scale": 0.75
+        }
+      }
+    },
+    "animation.rustage.market_coin.hold_third_person": {
+      "loop": true,
+      "bones": {
+        "rustage_market_coin": {
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "position": [
+            0,
+            18,
+            -2
+          ],
+          "scale": 0.8
+        }
+      }
+    }
+  }
+}

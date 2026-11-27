@@ -1,0 +1,45 @@
+{
+  "resource_pack_name": "Rustage",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "rustage.ak47": {
+      "textures": "textures/items/ak47"
+    },
+    "rustage.ammo": {
+      "textures": "textures/items/ammo"
+    },
+    "rustage.scrap": {
+      "textures": "textures/items/scrap"
+    },
+    "rustage.metal": {
+      "textures": "textures/items/metal"
+    },
+    "rustage.rad_pill": {
+      "textures": "textures/items/rad_pill"
+    },
+    "rustage.market_coin": {
+      "textures": "textures/items/market_coin"
+    },
+    "rustage.gas_can": {
+      "textures": "textures/items/gas_can"
+    },
+    "rustage.stone": {
+      "textures": "textures/items/stone"
+    },
+    "rustage.wood": {
+      "textures": "textures/items/wood"
+    },
+    "rustage.hammer": {
+      "textures": "textures/items/hammer"
+    },
+    "rustage.berries": {
+      "textures": "textures/items/berries"
+    },
+    "rustage.cooked_meat": {
+      "textures": "textures/items/cooked_meat"
+    },
+    "rustage.water": {
+      "textures": "textures/items/water"
+    }
+  }
+}

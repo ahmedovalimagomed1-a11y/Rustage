@@ -1,0 +1,10 @@
+export const MAP_RADIUS = 500;
+export const SPAWN = { x: 0, y: 66, z: 8 };
+export const LOGIN_LOBBY = { x: 0, y: 66, z: 0 };
+export const SPHERE_CENTER = { x: 0, y: 90, z: 0 };
+export const SPHERE_RADIUS = 35;
+export const MARKET_EAST = { x: 120, y: 64, z: 0 };
+export const MARKET_WEST = { x: -120, y: 64, z: 80 };
+export const GAS_STATION = { x: -120, y: 64, z: 0 };
+export const RADIATION_CENTER = { x: -120, y: 64, z: 0 };
+export const RADIATION_RADIUS = 30;

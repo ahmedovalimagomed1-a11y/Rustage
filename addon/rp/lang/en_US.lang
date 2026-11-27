@@ -1,0 +1,22 @@
+item.rustage:ak47.name=AK-47
+item.rustage:ammo.name=7.62 Ammo
+item.rustage:scrap.name=Metal Scrap
+item.rustage:metal.name=Refined Metal
+item.rustage:rad_pill.name=Rad Pill
+item.rustage:market_coin.name=Market Coin
+item.rustage:gas_can.name=Gas Can
+item.rustage:stone.name=Rust Stone
+item.rustage:wood.name=Rust Wood
+item.rustage:hammer.name=Building Hammer
+item.rustage:berries.name=Berries
+item.rustage:cooked_meat.name=Cooked Meat
+item.rustage:water.name=Water Bottle
+tile.rustage:wood_floor.name=Rust Wood Floor
+tile.rustage:stone_floor.name=Rust Stone Floor
+tile.rustage:metal_floor.name=Rust Metal Floor
+tile.rustage:wood_wall.name=Rust Wood Wall
+tile.rustage:stone_wall.name=Rust Stone Wall
+tile.rustage:metal_wall.name=Rust Metal Wall
+
+pack.name=Rustage
+pack.description=Rustage survival, mining, PvP, economy, and accounts by mmallaccia

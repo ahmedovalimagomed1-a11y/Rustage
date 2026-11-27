@@ -1,0 +1,80 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.rustage.hammer",
+        "texture_width": 32,
+        "texture_height": 32,
+        "visible_bounds_width": 6,
+        "visible_bounds_height": 8,
+        "visible_bounds_offset": [
+          0,
+          3,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "rustage_hammer",
+          "binding": "query.item_slot_to_bone_name(context.item_slot)",
+          "pivot": [
+            0,
+            0,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -0.7,
+                -4,
+                -0.7
+              ],
+              "size": [
+                1.4,
+                7,
+                1.4
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            },
+            {
+              "origin": [
+                -2.5,
+                2,
+                -1
+              ],
+              "size": [
+                5,
+                2,
+                2
+              ],
+              "uv": [
+                8,
+                0
+              ]
+            },
+            {
+              "origin": [
+                -3.2,
+                2.6,
+                -0.8
+              ],
+              "size": [
+                1,
+                1.4,
+                1.6
+              ],
+              "uv": [
+                16,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
