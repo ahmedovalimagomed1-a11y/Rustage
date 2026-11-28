@@ -3,6 +3,7 @@
   "texture_name": "atlas.items",
   "texture_data": {
     "rust.ak47": { "textures": "textures/items/rust/ak47" },
+    "rust.pda": { "textures": "textures/items/rust/pda" },
     "rust.ammo_556": { "textures": "textures/items/rust/ammo_556" },
     "rust.syringe": { "textures": "textures/items/rust/syringe" },
     "rust.bandage": { "textures": "textures/items/rust/bandage" },

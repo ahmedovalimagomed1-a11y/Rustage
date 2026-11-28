@@ -2,6 +2,7 @@ export const NS = "rust";
 
 export const ITEMS = {
   ak47: "rust:ak47",
+  pda: "rust:pda",
   ammo556: "rust:ammo_556",
   syringe: "rust:syringe",
   bandage: "rust:bandage",

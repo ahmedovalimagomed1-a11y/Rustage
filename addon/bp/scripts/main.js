@@ -6,6 +6,7 @@ import { handleBlockInteract } from "./recycler.js";
 import { startRadiation } from "./radiation.js";
 import { handleBlockBreak } from "./resources.js";
 import { handleWeaponUse } from "./weapons.js";
+import { handlePdaUse } from "./menu.js";
 import { buildMap } from "./worldgen.js";
 
 world.afterEvents.worldInitialize.subscribe(() => {
@@ -23,11 +24,12 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     }
     player.sendMessage("§6Rustage 1.21.50§r — остров, 4 РТ точки, AK-47.");
     player.sendMessage("§7AK-47: ПКМ — огонь, присесть + ПКМ — перезарядка.§r");
-    player.sendMessage("§7/scriptevent rust:help — команды.§r");
+    player.sendMessage("§7ПКМ по КПК — меню. Админ: /scriptevent rust:help§r");
   });
 });
 
 world.afterEvents.itemUse.subscribe(handleWeaponUse);
+world.afterEvents.itemUse.subscribe(handlePdaUse);
 world.afterEvents.itemUse.subscribe(handleMedicalUse);
 world.afterEvents.playerInteractWithBlock.subscribe(handleBlockInteract);
 world.afterEvents.playerBreakBlock.subscribe(handleBlockBreak);

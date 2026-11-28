@@ -5,6 +5,7 @@ import { giveItem } from "./utils.js";
 
 const SHORT_ITEMS = {
   ak47: ITEMS.ak47,
+  pda: ITEMS.pda,
   ammo: ITEMS.ammo556,
   ammo556: ITEMS.ammo556,
   syringe: ITEMS.syringe,
@@ -46,6 +47,7 @@ function sendHelp(player) {
 
 export function giveKit(player) {
   giveItem(player, ITEMS.ak47, 1);
+  giveItem(player, ITEMS.pda, 1);
   giveItem(player, ITEMS.ammo556, 90);
   giveItem(player, ITEMS.bandage, 5);
   giveItem(player, ITEMS.syringe, 2);

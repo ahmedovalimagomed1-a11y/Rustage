@@ -151,6 +151,16 @@ def item_gears(img):
         rect(img, x - 2, y - 2, x + 2, y + 2, (128, 136, 144, 255))
 
 
+def item_pda(img):
+    outline_rect(img, 7, 3, 25, 28, (54, 60, 66, 255))
+    rect(img, 9, 5, 23, 22, (16, 22, 18, 255))
+    rect(img, 10, 7, 22, 20, (74, 170, 102, 255))
+    for y in (10, 13, 16, 19):
+        line(img, 12, y, 20, y, (26, 74, 44, 255), 1)
+    rect(img, 12, 24, 20, 25, (126, 132, 138, 255))
+    rect(img, 21, 1, 22, 5, (176, 184, 190, 255))
+
+
 def item_tech_trash(img):
     outline_rect(img, 5, 7, 27, 26, (34, 82, 54, 255))
     for y in (11, 15, 19, 23):
@@ -203,6 +213,7 @@ def main():
         "cloth": item_cloth,
         "gears": item_gears,
         "tech_trash": item_tech_trash,
+        "pda": item_pda,
         "scrap": item_scrap,
     }
     for name, draw in items.items():
