@@ -46,6 +46,7 @@ if [[ ! -S "$PLAYIT_SOCKET" ]] || ! "$PLAYIT_BIN_DIR/playit" status >/dev/null 2
 fi
 
 "$PLAYIT_BIN_DIR/playit" status || true
+python3 "$ROOT/scripts/playit-address.py" || true
 docker compose -f "$ROOT/docker-compose.yml" up -d --force-recreate bds
 sleep 10
 docker compose -f "$ROOT/docker-compose.yml" ps

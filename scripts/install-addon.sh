@@ -86,6 +86,7 @@ if [[ "${1:-}" == "--restart" ]]; then
   fi
   if command -v playit >/dev/null 2>&1; then
     playit status 2>&1 | grep -E "Phase:|PID:|Secret configured:" || true
+    python3 "$ROOT/scripts/playit-address.py" || true
   fi
   docker compose -f "$ROOT/docker-compose.yml" ps
 fi
