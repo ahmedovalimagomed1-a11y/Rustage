@@ -1,15 +1,15 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Rustage RP",
-    "description": "Rustage items and textures by mmallaccia",
+    "name": "Rustage 1.21.50 RP",
+    "description": "Rustage AK-47 model, textures, item icons, sounds and block textures.",
     "uuid": "3d03bc29-2ab9-49d7-8bf3-2eb969c22291",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 26, 0]
+    "min_engine_version": [1, 21, 50]
   },
   "modules": [
     {
-      "description": "Rustage resource pack",
+      "description": "Rustage resources",
       "type": "resources",
       "uuid": "bc4732d7-4c47-4a7b-95c2-b2dfa8e2f086",
       "version": [1, 0, 0]

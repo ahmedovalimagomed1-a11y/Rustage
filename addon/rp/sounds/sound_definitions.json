@@ -1,0 +1,25 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "rust.ak47.fire": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/rust/ak47_fire",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "rust.ak47.reload": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/rust/ak47_reload",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    }
+  }
+}

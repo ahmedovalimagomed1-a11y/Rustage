@@ -1,34 +1,20 @@
 services:
   bds:
-    build:
-      context: ./server/levilamina
-      dockerfile: Dockerfile
+    image: lomot/minecraft-bedrock:1.21.50.10
     container_name: rustage-bds
     restart: unless-stopped
     user: "1000:1000"
     environment:
-      HOME: /home/codespace
-      XDG_CACHE_HOME: /home/codespace/.cache
+      HOME: /tmp
+    stdin_open: true
+    tty: true
+    stop_grace_period: 30s
     ports:
       - "19132:19132/tcp"
       - "19132:19132/udp"
-      - "19134:19134/udp"
     volumes:
-      - ./server/levilamina:/app
-      - /home/codespace/.local/share/lip:/home/codespace/.local/share/lip
-
-  waterdog:
-    image: eclipse-temurin:17-jre
-    container_name: rustage-waterdog
-    restart: unless-stopped
-    stdin_open: true
-    network_mode: "service:bds"
-    depends_on:
-      - bds
-    working_dir: /app
-    command: ["java", "-Xms256M", "-Xmx1G", "-jar", "Waterdog.jar"]
-    volumes:
-      - ./server/waterdog:/app
+      - ./server/bds-1.21.50:/mcpe/server
+      - ./server/bds-data:/data
 
   tailscale:
     image: tailscale/tailscale:latest

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "rust:tech_trash"
+    },
+    "components": {
+      "minecraft:display_name": { "value": "Техлом" },
+      "minecraft:icon": { "textures": { "default": "rust.tech_trash" } },
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": false,
+      "minecraft:tags": { "tags": ["rust:resource"] }
+    }
+  }
+}

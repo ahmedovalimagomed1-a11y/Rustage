@@ -1,21 +1,9 @@
 {
   "format_version": [1, 1, 1],
-  "rustage:wood_floor": {
-    "textures": "rustage_wood_floor"
+  "rust:recycler": {
+    "textures": "rust_recycler"
   },
-  "rustage:stone_floor": {
-    "textures": "rustage_stone_floor"
-  },
-  "rustage:metal_floor": {
-    "textures": "rustage_metal_floor"
-  },
-  "rustage:wood_wall": {
-    "textures": "rustage_wood_wall"
-  },
-  "rustage:stone_wall": {
-    "textures": "rustage_stone_wall"
-  },
-  "rustage:metal_wall": {
-    "textures": "rustage_metal_wall"
+  "rust:tool_cupboard": {
+    "textures": "rust_tool_cupboard"
   }
 }

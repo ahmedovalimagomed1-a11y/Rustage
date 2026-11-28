@@ -1,15 +1,15 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Rustage BP",
-    "description": "Rustage: mining, weapons, economy, accounts, and world systems by mmallaccia",
+    "name": "Rustage 1.21.50 BP",
+    "description": "Rustage: AK-47, 5.56 ammo, medical items, resources, recycler and island points.",
     "uuid": "8c29fe7b-377b-4fc4-bbf2-89f387508255",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 26, 0]
+    "min_engine_version": [1, 21, 50]
   },
   "modules": [
     {
-      "description": "Rustage behavior pack",
+      "description": "Rustage data",
       "type": "data",
       "uuid": "5e688723-c8f9-41d9-95ff-61c3ac8373b0",
       "version": [1, 0, 0]
@@ -30,7 +30,11 @@
     },
     {
       "module_name": "@minecraft/server",
-      "version": "2.12.0-beta"
+      "version": "1.15.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
     }
   ],
   "metadata": {

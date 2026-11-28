@@ -1,208 +1,120 @@
-import { world, system } from "@minecraft/server";
-import {
-  MAP_RADIUS,
-  SPAWN,
-  LOGIN_LOBBY,
-  SPHERE_CENTER,
-  SPHERE_RADIUS,
-  MARKET_EAST,
-  MARKET_WEST,
-  GAS_STATION
-} from "./config.js";
+import { ItemStack, world } from "@minecraft/server";
+import { ISLAND, ITEMS, RT_POINTS, SPAWN, WORLD_KEYS } from "./config.js";
+import { safeRunCommand, setBlockSafe } from "./utils.js";
 
-const DONE_KEY = "rustage:worldgen:v5";
-const MARKER = { x: 5, y: 80, z: 0 };
-const queue = [];
-let runner = null;
-let building = false;
+const overworld = () => world.getDimension("overworld");
 
-function addFill(x1, y1, z1, x2, y2, z2, block) {
-  queue.push({ type: "fill", x1, y1, z1, x2, y2, z2, block });
+function command(dimension, cmd) {
+  return safeRunCommand(dimension, cmd);
 }
 
-function addBlock(x, y, z, block) {
-  queue.push({ type: "block", x, y, z, block });
-}
+function fillChest(dimension, x, y, z, rolls) {
+  command(dimension, `setblock ${x} ${y} ${z} chest`);
+  const block = dimension.getBlock({ x, y, z });
+  const container = block?.getComponent("minecraft:inventory")?.container;
+  if (!container) return;
 
-function safeFill(dimension, task) {
-  try {
-    dimension.runCommand(`fill ${task.x1} ${task.y1} ${task.z1} ${task.x2} ${task.y2} ${task.z2} ${task.block}`);
-  } catch {}
-}
+  const pool = [
+    [ITEMS.ammo556, 15, 45],
+    [ITEMS.bandage, 1, 4],
+    [ITEMS.syringe, 1, 2],
+    [ITEMS.scrap, 2, 8],
+    [ITEMS.gears, 1, 3],
+    [ITEMS.techTrash, 1, 2],
+    [ITEMS.metal, 1, 6],
+    [ITEMS.sulfur, 1, 5],
+    [ITEMS.charcoal, 2, 8],
+    [ITEMS.cloth, 1, 5],
+  ];
 
-function safeBlock(dimension, task) {
-  try {
-    dimension.setBlockType({ x: task.x, y: task.y, z: task.z }, task.block);
-  } catch {}
-}
-
-function buildSpawnHub() {
-  const { x, y, z } = SPAWN;
-  addFill(x - 7, y - 2, z - 7, x + 7, y - 2, z + 7, "minecraft:polished_andesite");
-  addFill(x - 6, y - 1, z - 6, x - 6, y + 3, z + 6, "minecraft:oak_log");
-  addFill(x + 6, y - 1, z - 6, x + 6, y + 3, z + 6, "minecraft:oak_log");
-  addFill(x - 6, y + 4, z - 6, x + 6, y + 4, z + 6, "minecraft:glass");
-  addFill(x - 5, y - 1, z - 5, x + 5, y - 1, z - 5, "minecraft:oak_planks");
-  addFill(x - 5, y - 1, z + 5, x + 5, y - 1, z + 5, "minecraft:oak_planks");
-  addBlock(x - 2, y - 1, z + 2, "minecraft:crafting_table");
-  addBlock(x + 2, y - 1, z + 2, "minecraft:furnace");
-  addBlock(x, y - 1, z + 3, "minecraft:chest");
-  addBlock(x - 4, y - 1, z - 2, "minecraft:bed");
-  addBlock(x - 6, y + 2, z - 3, "minecraft:torch");
-  addBlock(x + 6, y + 2, z + 3, "minecraft:torch");
-  addBlock(MARKER.x, MARKER.y, MARKER.z, "minecraft:barrier");
-}
-
-function buildLoginLobby() {
-  const { x, y, z } = LOGIN_LOBBY;
-  addFill(x - 4, y - 1, z - 4, x + 4, y - 1, z + 4, "minecraft:polished_andesite");
-  addFill(x - 4, y, z - 4, x + 4, y + 10, z - 4, "minecraft:barrier");
-  addFill(x - 4, y, z + 4, x + 4, y + 10, z + 4, "minecraft:barrier");
-  addFill(x - 4, y, z - 4, x - 4, y + 10, z + 4, "minecraft:barrier");
-  addFill(x + 4, y, z - 4, x + 4, y + 10, z + 4, "minecraft:barrier");
-  addFill(x - 4, y + 10, z - 4, x + 4, y + 10, z + 4, "minecraft:barrier");
-  addBlock(x, y, z, "minecraft:gold_block");
-}
-
-function buildMapBoundary() {
-  const r = MAP_RADIUS;
-  const y = 90;
-  addFill(-r, y, -r, r, y, -r, "minecraft:bedrock");
-  addFill(-r, y, r, r, y, r, "minecraft:bedrock");
-  addFill(-r, y, -r, -r, y, r, "minecraft:bedrock");
-  addFill(r, y, -r, r, y, r, "minecraft:bedrock");
-  addFill(-r, y + 1, -r, r, y + 4, -r, "minecraft:glass");
-  addFill(-r, y + 1, r, r, y + 4, r, "minecraft:glass");
-  addFill(-r, y + 1, -r, -r, y + 4, r, "minecraft:glass");
-  addFill(r, y + 1, -r, r, y + 4, r, "minecraft:glass");
-  for (let offset = -r; offset <= r; offset += 25) {
-    addBlock(offset, y + 5, -r, "minecraft:glowstone");
-    addBlock(offset, y + 5, r, "minecraft:glowstone");
-    addBlock(-r, y + 5, offset, "minecraft:glowstone");
-    addBlock(r, y + 5, offset, "minecraft:glowstone");
+  for (let i = 0; i < rolls; i++) {
+    const [typeId, min, max] = pool[Math.floor(Math.random() * pool.length)];
+    const amount = min + Math.floor(Math.random() * (max - min + 1));
+    container.addItem(new ItemStack(typeId, amount));
   }
 }
 
-function buildRoads() {
-  addFill(0, 64, -3, MARKET_EAST.x, 64, 3, "minecraft:gravel");
-  addFill(MARKET_WEST.x, 64, -3, 0, 64, 3, "minecraft:gravel");
-  addFill(GAS_STATION.x, 64, GAS_STATION.z, GAS_STATION.x, 64, MARKET_WEST.z, "minecraft:gravel");
-  addFill(MARKET_WEST.x - 3, 64, 0, MARKET_WEST.x + 3, 64, 0, "minecraft:gravel");
-  addFill(MARKET_EAST.x - 3, 64, 0, MARKET_EAST.x + 3, 64, 0, "minecraft:gravel");
+function buildIsland(dimension) {
+  command(dimension, `fill ${ISLAND.minX} ${ISLAND.stoneY} ${ISLAND.minZ} ${ISLAND.maxX} ${ISLAND.stoneY} ${ISLAND.maxZ} minecraft:stone`);
+  command(dimension, `fill ${ISLAND.minX} ${ISLAND.dirtY} ${ISLAND.minZ} ${ISLAND.maxX} ${ISLAND.dirtY} ${ISLAND.maxZ} minecraft:dirt`);
+  command(dimension, `fill ${ISLAND.minX} ${ISLAND.grassY} ${ISLAND.minZ} ${ISLAND.maxX} ${ISLAND.grassY} ${ISLAND.maxZ} minecraft:grass_block`);
+  command(dimension, `fill ${ISLAND.minX} 82 ${ISLAND.minZ} ${ISLAND.maxX} 82 ${ISLAND.minZ} minecraft:oak_fence`);
+  command(dimension, `fill ${ISLAND.minX} 82 ${ISLAND.maxZ} ${ISLAND.maxX} 82 ${ISLAND.maxZ} minecraft:oak_fence`);
+  command(dimension, `fill ${ISLAND.minX} 82 ${ISLAND.minZ} ${ISLAND.minX} 82 ${ISLAND.maxZ} minecraft:oak_fence`);
+  command(dimension, `fill ${ISLAND.maxX} 82 ${ISLAND.minZ} ${ISLAND.maxX} 82 ${ISLAND.maxZ} minecraft:oak_fence`);
 }
 
-function buildSphere() {
-  const { x: cx, y: cy, z: cz } = SPHERE_CENTER;
-  const radius = SPHERE_RADIUS;
-  addFill(cx - 22, cy - 6, cz - 22, cx + 22, cy - 6, cz + 22, "minecraft:polished_andesite");
-  addFill(cx - 3, cy - 5, cz - 3, cx + 3, cy - 2, cz + 3, "minecraft:glowstone");
-  for (let dy = -radius; dy <= radius; dy += 2) {
-    const ring = Math.sqrt(Math.max(0, radius * radius - dy * dy));
-    if (ring < 1) continue;
-    const steps = Math.max(24, Math.floor(ring * 2.6));
-    for (let step = 0; step < steps; step++) {
-      const angle = (step / steps) * Math.PI * 2;
-      const x = cx + Math.round(Math.cos(angle) * ring);
-      const z = cz + Math.round(Math.sin(angle) * ring);
-      const block = step % 9 === 0 ? "minecraft:glowstone" : "minecraft:glass";
-      addBlock(x, cy + dy, z, block);
+function buildGasStation(dimension) {
+  command(dimension, "fill 26 82 26 34 82 34 minecraft:stone_bricks");
+  command(dimension, "fill 26 83 26 34 86 34 minecraft:stone_bricks");
+  command(dimension, "fill 27 83 27 33 85 33 minecraft:air");
+  command(dimension, "setblock 30 83 26 minecraft:air");
+  command(dimension, "setblock 30 84 26 minecraft:air");
+  command(dimension, "setblock 30 85 30 minecraft:lantern");
+  fillChest(dimension, 30, 82, 30, 5);
+}
+
+function buildSphere(dimension) {
+  const cx = -30;
+  const cy = 87;
+  const cz = 30;
+  const radius = 5;
+  for (let x = -radius; x <= radius; x++) {
+    for (let y = -radius; y <= radius; y++) {
+      for (let z = -radius; z <= radius; z++) {
+        const dist = Math.sqrt(x * x + y * y + z * z);
+        if (dist <= radius && dist > radius - 0.9) {
+          setBlockSafe(dimension, cx + x, cy + y, cz + z, "minecraft:glass");
+        } else if (dist <= radius - 0.9) {
+          setBlockSafe(dimension, cx + x, cy + y, cz + z, "minecraft:air");
+        }
+      }
     }
   }
-  addFill(cx - 6, cy - 6, cz - 6, cx + 6, cy - 6, cz + 6, "minecraft:gold_block");
+  setBlockSafe(dimension, cx, 82, cz, "minecraft:air");
+  setBlockSafe(dimension, cx, 83, cz, "minecraft:air");
+  fillChest(dimension, cx, 82, cz, 6);
 }
 
-function buildMarket(center, roofColor) {
-  const { x, y, z } = center;
-  addFill(x - 18, y, z - 14, x + 18, y, z + 14, "minecraft:polished_andesite");
-  addFill(x - 18, y + 1, z - 14, x + 18, y + 1, z + 14, "minecraft:carpet");
-  for (let offset = -12; offset <= 12; offset += 8) {
-    addFill(x + offset - 2, y + 1, z - 6, x + offset + 2, y + 1, z - 2, "minecraft:oak_planks");
-    addFill(x + offset - 2, y + 2, z - 6, x + offset + 2, y + 4, z - 6, "minecraft:oak_log");
-    addFill(x + offset - 2, y + 5, z - 6, x + offset + 2, y + 5, z - 2, roofColor);
-    addBlock(x + offset, y + 2, z - 4, "minecraft:chest");
-    addFill(x + offset - 2, y + 1, z + 2, x + offset + 2, y + 1, z + 6, "minecraft:oak_planks");
-    addFill(x + offset - 2, y + 2, z + 6, x + offset + 2, y + 4, z + 6, "minecraft:oak_log");
-    addFill(x + offset - 2, y + 5, z + 2, x + offset + 2, y + 5, z + 6, roofColor);
-    addBlock(x + offset, y + 2, z + 4, "minecraft:chest");
+function buildFactory(dimension) {
+  command(dimension, "fill 24 82 -36 36 88 -24 minecraft:stone_bricks");
+  command(dimension, "fill 25 83 -35 35 87 -25 minecraft:air");
+  command(dimension, "setblock 30 83 -36 minecraft:air");
+  command(dimension, "setblock 30 84 -36 minecraft:air");
+  command(dimension, "fill 28 88 -32 32 88 -28 minecraft:iron_block");
+  fillChest(dimension, 30, 82, -30, 6);
+}
+
+function buildPort(dimension) {
+  command(dimension, "fill -38 82 -38 -22 82 -22 minecraft:oak_planks");
+  command(dimension, "fill -38 83 -38 -38 85 -22 minecraft:oak_fence");
+  command(dimension, "fill -22 83 -38 -22 85 -22 minecraft:oak_fence");
+  command(dimension, "fill -30 83 -30 -30 86 -30 minecraft:oak_fence");
+  command(dimension, "setblock -30 87 -30 minecraft:lantern");
+  fillChest(dimension, -30, 83, -30, 6);
+}
+
+function buildRecycler(dimension) {
+  setBlockSafe(dimension, SPAWN.x + 4, SPAWN.y, SPAWN.z, "rust:recycler");
+  setBlockSafe(dimension, SPAWN.x - 4, SPAWN.y, SPAWN.z, "rust:tool_cupboard");
+}
+
+export function buildMap() {
+  const dimension = overworld();
+  if (world.getDynamicProperty(WORLD_KEYS.mapBuilt) === true) return;
+
+  command(dimension, "gamerule sendcommandfeedback false");
+  buildIsland(dimension);
+  buildGasStation(dimension);
+  buildSphere(dimension);
+  buildFactory(dimension);
+  buildPort(dimension);
+  buildRecycler(dimension);
+
+  for (const point of RT_POINTS) {
+    command(dimension, `setblock ${point.x} 83 ${point.z} minecraft:torch`);
   }
-  addFill(x - 1, y + 1, z - 12, x + 1, y + 1, z + 12, "minecraft:gold_block");
-}
 
-function buildGasStation() {
-  const { x, y, z } = GAS_STATION;
-  addFill(x - 18, y, z - 14, x + 18, y, z + 14, "minecraft:polished_andesite");
-  addFill(x - 16, y + 1, z - 12, x + 16, y + 1, z + 12, "minecraft:blackstone");
-  addFill(x - 15, y + 7, z - 11, x + 15, y + 7, z + 11, "minecraft:red_concrete");
-  for (let px = -10; px <= 10; px += 10) {
-    addFill(x + px, y + 1, z - 4, x + px, y + 6, z - 4, "minecraft:emerald_block");
-    addBlock(x + px, y + 4, z - 3, "minecraft:redstone_lamp");
-  }
-  addFill(x - 4, y + 1, z + 6, x + 4, y + 4, z + 10, "minecraft:bricks");
-  addBlock(x, y + 2, z + 10, "minecraft:chest");
-}
-
-function enqueueStructures() {
-  buildLoginLobby();
-  buildSpawnHub();
-  buildMapBoundary();
-  buildRoads();
-  buildSphere();
-  buildMarket(MARKET_EAST, "minecraft:red_wool");
-  buildMarket(MARKET_WEST, "minecraft:blue_wool");
-  buildGasStation();
-}
-
-function startRunner() {
-  if (runner !== null) return;
-  const dimension = world.getDimension("overworld");
-  runner = system.runInterval(() => {
-    const budget = 600;
-    for (let processed = 0; processed < budget && queue.length > 0; processed++) {
-      const task = queue.shift();
-      if (task.type === "fill") safeFill(dimension, task);
-      if (task.type === "block") safeBlock(dimension, task);
-    }
-    if (queue.length !== 0) return;
-    safeBlock(dimension, { x: MARKER.x, y: MARKER.y, z: MARKER.z, block: "minecraft:barrier" });
-    system.clearRun(runner);
-    runner = null;
-    building = false;
-    world.setDynamicProperty(DONE_KEY, "done");
-    console.log("[Rustage] worldgen complete");
-    world.sendMessage("§aRustage world generation complete.");
-  }, 1);
-}
-
-function isBuilt() {
-  if (world.getDynamicProperty(DONE_KEY) === "done") return true;
-  try {
-    const dimension = world.getDimension("overworld");
-    const block = dimension.getBlockType(MARKER);
-    return block?.id === "minecraft:barrier";
-  } catch {
-    return false;
-  }
-}
-
-export function buildWorld() {
-  if (building) return false;
-  if (isBuilt()) {
-    console.log(`[Rustage] worldgen skip ${DONE_KEY}=${world.getDynamicProperty(DONE_KEY)}`);
-    world.setDynamicProperty(DONE_KEY, "done");
-    return false;
-  }
-  building = true;
-  queue.length = 0;
-  enqueueStructures();
-  world.setDynamicProperty(DONE_KEY, "building");
-  console.log("[Rustage] worldgen started");
-  world.sendMessage("§eRustage world generation started.");
-  startRunner();
-  return true;
-}
-
-export function initWorldgen() {
-  world.afterEvents.worldLoad.subscribe(() => {
-    buildWorld();
-  });
+  world.setDynamicProperty(WORLD_KEYS.mapBuilt, true);
+  console.warn("[Rustage] island and RT points generated");
 }

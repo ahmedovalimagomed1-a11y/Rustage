@@ -11,3 +11,4 @@ __pycache__/
 *.bak-*
 .env
 *.log
+/server/bds-1.21.50/

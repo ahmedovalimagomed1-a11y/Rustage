@@ -1,45 +1,19 @@
 {
-  "resource_pack_name": "Rustage",
+  "resource_pack_name": "Rustage 1.21.50",
   "texture_name": "atlas.items",
   "texture_data": {
-    "rustage.ak47": {
-      "textures": "textures/items/ak47"
-    },
-    "rustage.ammo": {
-      "textures": "textures/items/ammo"
-    },
-    "rustage.scrap": {
-      "textures": "textures/items/scrap"
-    },
-    "rustage.metal": {
-      "textures": "textures/items/metal"
-    },
-    "rustage.rad_pill": {
-      "textures": "textures/items/rad_pill"
-    },
-    "rustage.market_coin": {
-      "textures": "textures/items/market_coin"
-    },
-    "rustage.gas_can": {
-      "textures": "textures/items/gas_can"
-    },
-    "rustage.stone": {
-      "textures": "textures/items/stone"
-    },
-    "rustage.wood": {
-      "textures": "textures/items/wood"
-    },
-    "rustage.hammer": {
-      "textures": "textures/items/hammer"
-    },
-    "rustage.berries": {
-      "textures": "textures/items/berries"
-    },
-    "rustage.cooked_meat": {
-      "textures": "textures/items/cooked_meat"
-    },
-    "rustage.water": {
-      "textures": "textures/items/water"
-    }
+    "rust.ak47": { "textures": "textures/items/rust/ak47" },
+    "rust.ammo_556": { "textures": "textures/items/rust/ammo_556" },
+    "rust.syringe": { "textures": "textures/items/rust/syringe" },
+    "rust.bandage": { "textures": "textures/items/rust/bandage" },
+    "rust.wood": { "textures": "textures/items/rust/wood" },
+    "rust.stone": { "textures": "textures/items/rust/stone" },
+    "rust.metal": { "textures": "textures/items/rust/metal" },
+    "rust.sulfur": { "textures": "textures/items/rust/sulfur" },
+    "rust.charcoal": { "textures": "textures/items/rust/charcoal" },
+    "rust.cloth": { "textures": "textures/items/rust/cloth" },
+    "rust.gears": { "textures": "textures/items/rust/gears" },
+    "rust.tech_trash": { "textures": "textures/items/rust/tech_trash" },
+    "rust.scrap": { "textures": "textures/items/rust/scrap" }
   }
 }

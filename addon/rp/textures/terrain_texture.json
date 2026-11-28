@@ -1,26 +1,10 @@
 {
-  "resource_pack_name": "Rustage",
+  "resource_pack_name": "Rustage 1.21.50",
   "texture_name": "atlas.terrain",
   "padding": 8,
   "num_mip_levels": 4,
   "texture_data": {
-    "rustage_wood_floor": {
-      "textures": "textures/blocks/wood_floor"
-    },
-    "rustage_stone_floor": {
-      "textures": "textures/blocks/stone_floor"
-    },
-    "rustage_metal_floor": {
-      "textures": "textures/blocks/metal_floor"
-    },
-    "rustage_wood_wall": {
-      "textures": "textures/blocks/wood_wall"
-    },
-    "rustage_stone_wall": {
-      "textures": "textures/blocks/stone_wall"
-    },
-    "rustage_metal_wall": {
-      "textures": "textures/blocks/metal_wall"
-    }
+    "rust_recycler": { "textures": "textures/blocks/rust/recycler" },
+    "rust_tool_cupboard": { "textures": "textures/blocks/rust/tool_cupboard" }
   }
 }
