@@ -20,6 +20,8 @@ const SHORT_ITEMS = {
   tech: ITEMS.techTrash,
   tech_trash: ITEMS.techTrash,
   scrap: ITEMS.scrap,
+  recycler: ITEMS.recycler,
+  tool_cupboard: ITEMS.toolCupboard,
 };
 
 function resolveItem(value) {

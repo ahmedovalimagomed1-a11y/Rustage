@@ -2,19 +2,53 @@
   "resource_pack_name": "Rustage 1.21.50",
   "texture_name": "atlas.items",
   "texture_data": {
-    "rust.ak47": { "textures": "textures/items/rust/ak47" },
-    "rust.pda": { "textures": "textures/items/rust/pda" },
-    "rust.ammo_556": { "textures": "textures/items/rust/ammo_556" },
-    "rust.syringe": { "textures": "textures/items/rust/syringe" },
-    "rust.bandage": { "textures": "textures/items/rust/bandage" },
-    "rust.wood": { "textures": "textures/items/rust/wood" },
-    "rust.stone": { "textures": "textures/items/rust/stone" },
-    "rust.metal": { "textures": "textures/items/rust/metal" },
-    "rust.sulfur": { "textures": "textures/items/rust/sulfur" },
-    "rust.charcoal": { "textures": "textures/items/rust/charcoal" },
-    "rust.cloth": { "textures": "textures/items/rust/cloth" },
-    "rust.gears": { "textures": "textures/items/rust/gears" },
-    "rust.tech_trash": { "textures": "textures/items/rust/tech_trash" },
-    "rust.scrap": { "textures": "textures/items/rust/scrap" }
+    "rust.ak47": {
+      "textures": "textures/items/rust/ak47"
+    },
+    "rust.pda": {
+      "textures": "textures/items/rust/pda"
+    },
+    "rust.ammo_556": {
+      "textures": "textures/items/rust/ammo_556"
+    },
+    "rust.syringe": {
+      "textures": "textures/items/rust/syringe"
+    },
+    "rust.bandage": {
+      "textures": "textures/items/rust/bandage"
+    },
+    "rust.wood": {
+      "textures": "textures/items/rust/wood"
+    },
+    "rust.stone": {
+      "textures": "textures/items/rust/stone"
+    },
+    "rust.metal": {
+      "textures": "textures/items/rust/metal"
+    },
+    "rust.sulfur": {
+      "textures": "textures/items/rust/sulfur"
+    },
+    "rust.charcoal": {
+      "textures": "textures/items/rust/charcoal"
+    },
+    "rust.cloth": {
+      "textures": "textures/items/rust/cloth"
+    },
+    "rust.gears": {
+      "textures": "textures/items/rust/gears"
+    },
+    "rust.tech_trash": {
+      "textures": "textures/items/rust/tech_trash"
+    },
+    "rust.scrap": {
+      "textures": "textures/items/rust/scrap"
+    },
+    "rust.recycler": {
+      "textures": "textures/blocks/rust/recycler"
+    },
+    "rust.tool_cupboard": {
+      "textures": "textures/blocks/rust/tool_cupboard"
+    }
   }
 }

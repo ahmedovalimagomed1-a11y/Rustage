@@ -15,6 +15,8 @@ export const ITEMS = {
   gears: "rust:gears",
   techTrash: "rust:tech_trash",
   scrap: "rust:scrap",
+  recycler: "rust:recycler",
+  toolCupboard: "rust:tool_cupboard",
 };
 
 export const BLOCKS = {

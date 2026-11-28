@@ -9,12 +9,28 @@
     },
     "components": {
       "minecraft:collision_box": {
-        "origin": [-8, 0, -8],
-        "size": [16, 16, 16]
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
       },
       "minecraft:selection_box": {
-        "origin": [-8, 0, -8],
-        "size": [16, 16, 16]
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -30,7 +46,8 @@
         "explosion_resistance": 18
       },
       "minecraft:light_emission": 4,
-      "minecraft:map_color": "#4f6f52"
+      "minecraft:map_color": "#4f6f52",
+      "minecraft:loot": "loot_tables/blocks/recycler.json"
     }
   }
 }

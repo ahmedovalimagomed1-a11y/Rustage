@@ -1,0 +1,10 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "item", "name": "rust:tool_cupboard", "weight": 1 }
+      ]
+    }
+  ]
+}

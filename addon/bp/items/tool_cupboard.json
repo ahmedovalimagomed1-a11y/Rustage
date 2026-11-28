@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "rust:tool_cupboard",
+      "menu_category": { "category": "construction" }
+    },
+    "components": {
+      "minecraft:display_name": { "value": "Шкаф инструментов" },
+      "minecraft:icon": { "textures": { "default": "rust.tool_cupboard" } },
+      "minecraft:max_stack_size": 64,
+      "minecraft:block_placer": { "block": "rust:tool_cupboard" }
+    }
+  }
+}

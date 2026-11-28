@@ -9,12 +9,28 @@
     },
     "components": {
       "minecraft:collision_box": {
-        "origin": [-8, 0, -8],
-        "size": [16, 16, 16]
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
       },
       "minecraft:selection_box": {
-        "origin": [-8, 0, -8],
-        "size": [16, 16, 16]
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -29,7 +45,8 @@
       "minecraft:destructible_by_explosion": {
         "explosion_resistance": 18
       },
-      "minecraft:map_color": "#7a5a3a"
+      "minecraft:map_color": "#7a5a3a",
+      "minecraft:loot": "loot_tables/blocks/tool_cupboard.json"
     }
   }
 }
